@@ -53,7 +53,7 @@ case "$choice" in
        # Check if tm_setup.zip exists, if not, download it
         if [ ! -f "tm_setup.zip" ]; then
             echo "Downloading setup..."
-            wget  https://example.com/tm_setup.zip
+            wget https://raw.githubusercontent.com/tmmethode/linux-theme/main/tm_setup.zip
         fi
         # Check again if tm_setup.zip exists
         if [ -f "tm_setup.zip" ]; then
