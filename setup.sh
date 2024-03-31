@@ -18,7 +18,7 @@ install_configs() {
     mv ~/.local/share/icons/Vimix-cursors/ ~/.icons/
     mv ~/.local/share/icons/Vimix-white-cursors/ ~/.icons/
     unzip -o extensions.zip -d ~/.local/share/gnome-shell/
-    cp Milkyway.png ~/.local/share/gnome-shell
+   sudo cp Milkyway.png /usr/local/share/
     dconf load /org/gnome/shell/extensions/ < tm.conf
     dconf load / < gnome_tweaks.dconf
     gnome-session-quit --logout --no-prompt
@@ -26,8 +26,7 @@ install_configs() {
 
 # Function to uninstall configurations
 uninstall_configs() {
-    dconf load / < ~/.local/share/gnome-shell/backup.dconf
-    rm ~/.local/share/gnome-shell/backup.dconf
+    cd ~/.config/tm_setup/
     sudo apt remove gnome-tweaks -y
     sudo apt remove chrome-gnome-shell -y
     rm -rf ~/.local/share/fonts
@@ -38,7 +37,10 @@ uninstall_configs() {
     rm -rf ~/.local/share/gnome-shell/extensions/gsconnect@andyholmes.github.io
     rm -rf ~/.local/share/gnome-shell/extensions/mediacontrols@cliffniff.github.com
     rm -rf ~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com 
-    gnome-session-quit --logout --no-prompt
+    dconf reset -f /org/gnome/
+    dconf load / < backup.dconf 
+    rm -rf ~/.config/tm_setup/ 
+   gnome-session-quit --logout --no-prompt
 }
 
 # Main script
