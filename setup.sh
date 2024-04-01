@@ -2,16 +2,16 @@
 
 # Function to install configurations
 install_configs() {
- 
+    sudo apt install unzip -y
+    unzip -o tm_setup.zip -d ~/.config
+    cd ~/.local/share && zip -r ~/.config/tm_setup/gnome-shell.zip gnome-shell/
+    cd ~/.config/tm_setup
+    dconf dump / > backup.dconf
+
     sudo apt install gnome-tweaks -y
     sudo apt install chrome-gnome-shell -y
-    unzip -o tm_setup.zip -d ~/.config
-    cd ~/.config/tm_setup
     ./WhiteSur-gtk-theme/install.sh -t red
     ./Reversal-icon-theme-master/install.sh -red
-    sudo apt install unzip -y
-    dconf dump / > backup.dconf
-    mv ~/.local/share/gnome-shell/backup.dconf .
     unzip fonts.zip -d ~/.local/share/
     ./Vimix-cursors/install.sh
     mkdir ~/.icons
@@ -48,8 +48,7 @@ install_configs() {
     else
     echo "Unsupported GNOME Shell version: $major_version"
     fi
-    cp Milkyway.png ~/.local/share/gnome-shell
-    dconf load /org/gnome/shell/extensions/ < tm.conf
+    sudo cp Milkyway.png /usr/local/share/
     dconf load / < gnome_tweaks.dconf
     echo "Logging out......"
     sleep 5  # Wait for 5 seconds
@@ -58,19 +57,13 @@ install_configs() {
 
 # Function to uninstall configurations
 uninstall_configs() {
-    dconf load / < ~/.local/share/gnome-shell/backup.dconf
-    rm ~/.local/share/gnome-shell/backup.dconf
-    sudo apt remove gnome-tweaks -y
-    sudo apt remove chrome-gnome-shell -y
+    cd ~/.config/tm_setup/
     rm -rf ~/.local/share/fonts
-    rm -rf ~/.config/tm_setup
-    rm -rf ~/.local/share/gnome-shell/extensions/arcmenu@arcmenu.com
-    rm -rf ~/.local/share/gnome-shell/extensions/blur-my-shell@aunetx
-    rm -rf ~/.local/share/gnome-shell/extensions/CoverflowAltTab@palatis.blogspot.com
-    rm -rf ~/.local/share/gnome-shell/extensions/dash-to-panel@jderose9.github.com
-    rm -rf ~/.local/share/gnome-shell/extensions/gsconnect@andyholmes.github.io
-    rm -rf ~/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com 
-
+    rm -rf ~/.local/share/gnome-shell/
+    unzip -o gnome-shell.zip -d ~/.local/share/
+    dconf reset -f /org/gnome/
+    dconf load / < backup.dconf 
+    rm -rf ~/.config/tm_setup/ 
     echo "Logging out......"
     sleep 5  # Wait for 5 seconds
     gnome-session-quit --logout --no-prompt
