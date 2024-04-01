@@ -22,3 +22,6 @@ chmod +x setup.sh
 **Step 3: Login again and enjoy your new GNOME theme, which will change the look of your desktop!**
 
 ![1711945517708](image/README/1711945517708.png)
+![1711945529511](image/README/1711945529511.png)
+![1711945549880](image/README/1711945549880.png)
+![1711945562254](image/README/1711945562254.png)
